@@ -1,0 +1,30 @@
+md-card-content>:last-child, md-card>:last-child{
+  margin-bottom: 15px;
+}
+md-card-content>:first-child, md-card>:first-child{
+  margin-top: 15px;
+}
+md-card {
+  margin: 15px;
+}
+md-checkbox{
+  margin-right: 10px;
+}
+.question-card {
+  width: 400px;
+  min-width: 350px;
+}
+.app-action {
+  display: inline-block;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+}
+.question-status{
+  float: right;
+  margin-right:  15px;
+}
+.question-ground{
+  margin-right: 80px;
+  margin-left:  80px;
+} 

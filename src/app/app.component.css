@@ -1,0 +1,21 @@
+.app-action {
+  display: inline-block;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+}
+md-sidenav-container, .main-content {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+md-sidenav-layout {
+  background: rgba(0, 0, 0, .03);
+}
+.sidenav {
+  width: 300px;
+}
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

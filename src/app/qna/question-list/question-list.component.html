@@ -1,0 +1,42 @@
+
+<!--<md-card >
+     
+  <div fxLayout="row">
+      <md-icon md-card-avatar>question_answer</md-icon>
+      <md-card-title>Questions</md-card-title>
+  </div>
+
+  <md-card-content fxLayout="row" fxLayoutAlign="centre" 
+                    fxLayoutWrap="wrap" fxLayoutAlign.xs="start">-->
+    <md-card *ngFor="let question of questions" class="flex-item question-card">
+      <md-card-header>
+        <md-card-title>
+          <span *ngFor="let id  of question.categoryIds">
+            {{categoryDict[id].name}}
+          </span>
+        </md-card-title>
+        <md-card-subtitle>
+          {{question.questionText}}
+        </md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <md-list>
+          <md-list-item *ngFor="let answer of question.answers">
+            {{answer.answerText}}<md-icon *ngIf="answer.correct" md-list-icon>check</md-icon>
+          </md-list-item>
+        </md-list>
+
+        <md-chip-list>
+          <md-chip color="accent" selected="true" *ngFor="let tag of question.tags">
+            {{tag}}
+          </md-chip>
+        </md-chip-list>
+        <br>
+        <div>
+          <button *ngIf="showApproveButton && (question.status == 0 || question.status == 1)" (click)="approve(question)" md-raised-button color="primary">Approve</button>
+          <span class="question-status" *ngIf="question.status != 2">{{getDisplayStatus(question.status)}}</span>
+        </div>
+      </md-card-content>
+    </md-card>
+  <!--</md-card-content>
+</md-card>-->
