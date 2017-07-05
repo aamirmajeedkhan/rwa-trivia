@@ -1,0 +1,77 @@
+<md-card>
+  <form class="question-form" [formGroup]="qnaForm" (ngSubmit)="onSubmit()">
+    <md-card-title>Add Question</md-card-title>
+    <md-card-header>
+      <md-card-title>
+          <md-select placeholder="Category" name="category" formControlName="category">
+            <md-option *ngFor="let category of categories" [value]="category.id">
+              {{category.name}}
+            </md-option>
+          </md-select>
+           <p *ngIf="qnaForm.get('category').errors && qnaForm.get('category').touched" 
+           style="font-size: 11px;">Select a category</p>
+      </md-card-title>
+    </md-card-header>
+
+    <md-card-content>     
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Question" formControlName="questionText">
+          <md-hint align="end" *ngIf="qnaForm.controls.questionText.errors && qnaForm.controls.questionText.touched" class="error">Question is required!</md-hint>
+        </md-input-container>
+
+        <div formArrayName="answerArray">
+          <div *ngFor="let answerCtrl of answerArray; let i = index" [formGroupName]="i">
+            <md-input-container class="full-width">
+              <md-checkbox md-suffix formControlName="correct"></md-checkbox>
+            <input mdInput [placeholder]="'Answer ' + (i+1)" formControlName="answerText"/>
+            <md-hint align="end" *ngIf="answerArray.controls[i].controls.answerText.errors && 
+            answerArray.controls[i].controls.answerText.touched" class="error">Answer Required</md-hint>
+            </md-input-container>
+          </div>
+        </div>
+        <!--<div class="error" *ngIf="                             
+                            answerArray.touched && 
+                            qnaForm.hasError('correctAnswerCountInvalid')">
+        Pick one and only one correct answer
+      </div>      -->
+      <div class="error" *ngIf="                             
+                            qnaForm.get('answerArray').touched && 
+                            qnaForm.get('answerArray').hasError('correctAnswerCountInvalid')">
+        Pick one and only one correct answer
+      </div>
+      <p>
+        <md-checkbox formControlName="ordered">Ordered?</md-checkbox>
+      </p>
+      <p> 
+        <md-input-container class="full-width">
+          <textarea mdInput placeholder="Explanation" formControlName="explanation"></textarea>
+        </md-input-container>
+      </p> 
+
+      <p> 
+        <md-input-container>
+          <input mdInput placeholder="Tag" formControlName="tags">
+        </md-input-container>
+        <button md-button color="primary" [disabled]="qnaForm.get('tags').value==''" 
+          (click)="addTag()">ADD</button>        
+      </p>
+
+      <md-chip-list>
+        <md-chip *ngFor="let tag of autoTags">
+          {{tag}}
+        </md-chip>
+        <md-chip *ngFor="let tag of enteredTags">
+          {{tag}}  <span (click)="removeEnteredTag(tag)" class="remove-tag">x</span>
+        </md-chip>
+      </md-chip-list>
+    </md-card-content>
+    <div class="error" *ngIf="qnaForm.get('answerArray').valid && qnaForm.controls.questionText.valid && qnaForm.hasError('tagCountInvalid')">
+      Must have atleast 3 tags
+    </div>
+
+    <md-card-actions>
+      <button md-raised-button color="primary" type="submit" [disabled]="!qnaForm.valid">SAVE</button>
+      <button md-raised-button color="accent">CANCEL</button>
+    </md-card-actions>
+  </form>
+</md-card>
